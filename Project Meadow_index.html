@@ -1,0 +1,536 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<!-- ============================================================
+  PROJECT MEADOW — a "something is coming" landing page.
+  One file. No build step. No dependencies (the font is optional).
+  Scene: a still, cool morning. First sun behind the treeline.
+  No background movement — everything is going to be ok.
+
+  HOW TO CUSTOMIZE (2 minutes):
+    1. Search for "Meadow" and swap in your project name.
+    2. Search for "hello@example.com" and use your real email.
+    3. Point the two social links (href="#") at your profiles.
+    4. Edit the funny status lines in the LINES array in the script.
+    5. Drop this file on any static host: GitHub Pages, Netlify,
+       Vercel, Cloudflare Pages, or the root of your nginx box.
+============================================================= -->
+<title>Project Meadow — something good is growing</title>
+<meta name="description" content="Project Meadow is under construction. Something good is growing here — drop your email and be the first to know when it blooms." />
+<meta name="theme-color" content="#a4c6dc" />
+<meta property="og:title" content="Project Meadow — something good is growing" />
+<meta property="og:description" content="Under construction. Something good is growing — be the first to know when it blooms." />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='5' fill='%23a4c6dc'/%3E%3Cg fill='none' stroke='%23d98324' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 3v6'/%3E%3Cpath d='m6.1 8.9 1.4 1.4'/%3E%3Cpath d='M3 15h1.5'/%3E%3Cpath d='M19.5 15H21'/%3E%3Cpath d='m16.5 10.3 1.4-1.4'/%3E%3Cpath d='M22 19H2'/%3E%3Cpath d='m8 12 4-4 4 4'/%3E%3Cpath d='M16 19a4 4 0 0 0-8 0'/%3E%3C/g%3E%3C/svg%3E" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" />
+
+<style>
+  :root{
+    --ink:#223c4d;
+    --muted:#52707f;
+    --accent:#d98324;
+    --teal:#2c7a8c;
+    --card:rgba(255,255,255,.55);
+    --line:rgba(255,255,255,.7);
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{color-scheme:light}
+
+  body{
+    min-height:100vh;
+    font-family:'Space Grotesk',ui-sans-serif,system-ui,'Segoe UI',sans-serif;
+    color:var(--ink);
+    background-image:linear-gradient(180deg,
+      #a4c6dc 0%, #b7d4e3 38%, #d9e0d8 62%, #f0e3c8 82%, #f7ecd2 100%);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    padding:48px 20px 14vh;
+    overflow-x:hidden;
+    text-align:center;
+  }
+
+  ::selection{background:#f2b95c;color:#4a2c0a}
+  :focus-visible{outline:2px solid var(--teal);outline-offset:3px}
+
+  /* ---------- still dawn scene (no movement, only light) ---------- */
+  .scene{position:fixed;inset:0;overflow:hidden;pointer-events:none;z-index:0}
+  .scene svg{position:absolute;left:0;width:100%}
+  .scene button{pointer-events:auto;background:none;border:0;padding:0;cursor:pointer}
+
+  .moon{
+    position:absolute;top:9%;right:11%;width:44px;height:44px;border-radius:50%;
+    background:radial-gradient(circle at 35% 35%,#ffffff,#dfeef5 70%);
+    box-shadow:0 0 30px 12px rgba(255,255,255,.35);opacity:.3;
+  }
+
+  .birds{position:absolute;top:15%;left:12%;width:120px}
+
+  /* the sun, half hidden by the trees, just arriving */
+  .sun{
+    position:absolute;left:82%;top:52vh;transform:translate(-50%,-50%);
+    width:110px;height:110px;border-radius:50%;
+    background:radial-gradient(circle at 45% 40%,#fffdf2,#ffe9b0 55%,#ffdd94);
+    box-shadow:0 0 90px 40px rgba(255,216,140,.55),0 0 200px 90px rgba(255,216,140,.28);
+  }
+  /* .scene .rays beats the generic .scene svg rule above */
+  .scene .rays{
+    position:absolute;left:82%;top:52vh;transform:translate(-50%,-50%);
+    width:760px;height:480px;
+  }
+
+  .trees-far{bottom:31vh;height:15vh}
+  .trees-main{bottom:30vh;height:22vh}
+
+  .mist{
+    position:absolute;left:-5%;width:110%;
+    background:linear-gradient(180deg,rgba(255,255,255,0),rgba(255,255,255,.55) 45%,rgba(255,255,255,0));
+  }
+  .mist-1{bottom:26vh;height:9vh}
+  .mist-2{bottom:13vh;height:8vh;opacity:.7}
+
+  .hill-back{bottom:0;height:34vh}
+  .hill-front{bottom:0;height:24vh}
+
+  /* ---------- soft glass card ---------- */
+  .card{
+    position:relative;z-index:3;width:min(660px,100%);
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:26px;
+    padding:clamp(28px,5vw,52px) clamp(20px,5vw,48px);
+    backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+    box-shadow:0 24px 60px rgba(40,70,90,.20);
+    animation:fadeUp .9s cubic-bezier(.2,.7,.2,1) both;
+  }
+  @keyframes fadeUp{
+    from{opacity:0;transform:translateY(26px)}
+    to{opacity:1;transform:none}
+  }
+
+  .logo{
+    width:84px;height:84px;margin:0 auto 18px;border-radius:26px;
+    display:grid;place-items:center;color:var(--accent);
+    background:linear-gradient(160deg,rgba(255,201,107,.4),rgba(150,205,205,.35));
+    border:1px solid rgba(255,255,255,.75);
+    box-shadow:0 12px 26px rgba(60,90,100,.18);
+  }
+  .logo svg{width:46px;height:46px}
+
+  h1{
+    font-size:clamp(2.1rem,6vw,3.2rem);
+    font-weight:700;letter-spacing:-.02em;line-height:1.05;
+  }
+  .accent{
+    background:linear-gradient(92deg,#e8912f 10%,#dd6b3d 90%);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  .tagline{margin-top:12px;font-size:clamp(1rem,2.6vw,1.15rem);color:var(--muted)}
+
+  /* live status line (the only gentle motion on the page) */
+  .status{
+    display:inline-flex;align-items:center;gap:10px;margin-top:22px;
+    padding:10px 16px;min-height:44px;border-radius:999px;
+    background:rgba(255,255,255,.6);border:1px solid rgba(255,255,255,.85);
+    font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    font-size:.92rem;color:var(--teal);
+  }
+  .dot{
+    width:9px;height:9px;border-radius:50%;background:#4ade80;flex:none;
+    box-shadow:0 0 0 0 rgba(74,222,128,.6);animation:ping 1.8s infinite;
+  }
+  @keyframes ping{
+    70%{box-shadow:0 0 0 9px rgba(74,222,128,0)}
+    100%{box-shadow:0 0 0 0 rgba(74,222,128,0)}
+  }
+  .caret{
+    width:9px;height:1.15em;background:var(--teal);
+    display:inline-block;flex:none;animation:blink 1s steps(1) infinite;
+  }
+  @keyframes blink{50%{opacity:0}}
+
+  /* progress bar: slow, patient, honest */
+  .progress{margin-top:26px;text-align:left}
+  .progress-meta{
+    display:flex;justify-content:space-between;align-items:baseline;
+    font-size:.9rem;color:var(--muted);margin-bottom:8px;
+  }
+  .progress-meta b{color:var(--accent);font-variant-numeric:tabular-nums}
+  .bar{
+    height:12px;border-radius:999px;overflow:hidden;
+    background:rgba(34,60,77,.12);border:1px solid rgba(255,255,255,.8);
+  }
+  .bar i{
+    display:block;height:100%;width:42%;border-radius:inherit;
+    background:linear-gradient(90deg,#6cc4b2,#a5d8c0 45%,#f2b95c);
+    box-shadow:0 0 12px rgba(140,200,180,.5);
+    transition:width 1.4s cubic-bezier(.3,.8,.3,1);
+  }
+  .fine{margin-top:8px;font-size:.82rem;color:rgba(34,60,77,.55)}
+
+  /* mini badges */
+  .badges{
+    list-style:none;display:flex;flex-wrap:wrap;justify-content:center;
+    gap:10px;margin-top:24px;
+  }
+  .badges li{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:9px 14px;border-radius:999px;
+    background:rgba(255,255,255,.5);border:1px solid rgba(255,255,255,.75);
+    font-size:.88rem;color:#4e6c7c;
+  }
+  .badges svg{width:17px;height:17px;color:var(--accent);flex:none}
+
+  /* notify form */
+  form{display:flex;gap:10px;margin-top:28px}
+  input{
+    flex:1;min-width:0;padding:14px 18px;border-radius:16px;outline:none;
+    border:1px solid rgba(255,255,255,.9);background:rgba(255,255,255,.65);
+    color:var(--ink);font:inherit;font-size:.98rem;
+    transition:border-color .2s,box-shadow .2s;
+  }
+  input::placeholder{color:rgba(34,60,77,.4)}
+  input:focus{border-color:var(--teal);box-shadow:0 0 0 4px rgba(44,122,140,.15)}
+  .cta{
+    padding:14px 22px;border:0;border-radius:16px;cursor:pointer;white-space:nowrap;
+    font:inherit;font-weight:700;color:#5a3410;
+    background:linear-gradient(180deg,#ffd98a,#f5a83d 60%,#ee9526);
+    box-shadow:0 12px 24px rgba(240,160,60,.35);
+    transition:transform .15s,box-shadow .15s;
+  }
+  .cta:hover{transform:translateY(-2px);box-shadow:0 16px 30px rgba(240,160,60,.45)}
+  .cta:active{transform:translateY(0)}
+  .joined{font-size:1rem;color:var(--teal);padding:14px 4px}
+
+  /* footer, resting on the grass */
+  footer{
+    position:relative;z-index:3;margin-top:30px;
+    display:flex;flex-direction:column;align-items:center;gap:12px;
+  }
+  .socials{display:flex;gap:14px}
+  .socials a{
+    width:40px;height:40px;display:grid;place-items:center;border-radius:12px;
+    border:1px solid rgba(255,255,255,.85);background:rgba(255,255,255,.65);
+    color:#3f5b6b;
+    transition:transform .15s,background .2s,color .2s;
+  }
+  .socials a:hover{transform:translateY(-3px);color:#fff;background:#ee9526}
+  .socials svg{width:18px;height:18px}
+  .legal{
+    font-size:.8rem;color:#223c4d;
+    text-shadow:0 1px 4px rgba(255,255,255,.45);
+  }
+
+  /* toast */
+  .toast{
+    position:fixed;left:50%;bottom:5vh;z-index:9;
+    transform:translateX(-50%) translateY(16px);
+    max-width:min(90vw,480px);padding:12px 18px;border-radius:14px;
+    border:1px solid rgba(255,255,255,.25);
+    background:rgba(28,50,63,.94);color:#eef7fa;
+    font-size:.92rem;opacity:0;pointer-events:none;
+    box-shadow:0 16px 40px rgba(0,0,0,.25);
+    transition:opacity .25s,transform .25s;
+  }
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+  @media (max-width:560px){
+    .sun{width:86px;height:86px;left:75%}
+    .scene .rays{width:480px;height:300px;left:75%}
+    .birds{width:86px}
+    .moon{width:30px;height:30px}
+    form{flex-direction:column}
+    .cta{width:100%}
+    .card{border-radius:20px}
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    *,*::before,*::after{
+      animation-duration:.01ms !important;
+      animation-iteration-count:1 !important;
+      transition:none !important;
+    }
+  }
+</style>
+</head>
+<body>
+
+  <!-- ============ still dawn scene ============ -->
+  <div class="scene" aria-hidden="true">
+
+    <div class="moon"></div>
+
+    <!-- early birds. they are in no hurry either. -->
+    <button class="birds" id="birds" tabindex="-1">
+      <svg viewBox="0 0 120 50" fill="none" stroke="#3f637a" stroke-width="2.5" stroke-linecap="round">
+        <path d="M8 26 Q17 14 26 26 Q35 14 44 26"/>
+        <path d="M58 16 Q65 7 72 16 Q79 7 86 16"/>
+        <path d="M92 34 Q97 28 102 34 Q107 28 112 34"/>
+      </svg>
+    </button>
+
+    <!-- first ray of sun, peeping behind the forest -->
+    <button class="sun" id="sun" tabindex="-1"></button>
+    <svg class="rays" viewBox="0 0 800 500">
+      <path d="M400 300 L298 62 L342 54 Z" fill="rgba(255,243,214,.30)"/>
+      <path d="M400 300 L392 38 L432 42 Z" fill="rgba(255,243,214,.34)"/>
+      <path d="M400 300 L512 76 L478 66 Z" fill="rgba(255,243,214,.30)"/>
+      <path d="M400 300 L612 148 L588 132 Z" fill="rgba(255,243,214,.22)"/>
+    </svg>
+
+    <!-- distant ridge -->
+    <svg class="trees-far" viewBox="0 0 1440 160" preserveAspectRatio="none">
+      <path fill="#7f9fb0" d="M0 130 Q80 95 160 118 Q240 138 320 112 Q400 88 480 116 Q560 140 640 110 Q720 86 800 114 Q880 138 960 108 Q1040 84 1120 112 Q1200 136 1280 108 Q1360 88 1440 115 V160 H0 Z"/>
+    </svg>
+
+    <!-- the forest -->
+    <svg class="trees-main" viewBox="0 0 1440 220" preserveAspectRatio="none">
+      <path fill="#3a5d72" d="M80 70 L135 190 L25 190 Z M170 40 L230 190 L110 190 Z M265 85 L315 190 L215 190 Z M360 55 L418 190 L302 190 Z M470 95 L522 190 L418 190 Z M560 30 L622 190 L498 190 Z M665 75 L720 190 L610 190 Z M760 50 L820 190 L700 190 Z M870 90 L922 190 L818 190 Z M965 35 L1027 190 L903 190 Z M1070 70 L1126 190 L1014 190 Z M1165 55 L1223 190 L1107 190 Z M1265 88 L1317 190 L1213 190 Z M1360 45 L1420 190 L1300 190 Z M0 188 H1440 V220 H0 Z"/>
+      <circle cx="320" cy="152" r="38" fill="#3a5d72"/>
+      <circle cx="620" cy="156" r="34" fill="#3a5d72"/>
+      <circle cx="1010" cy="150" r="40" fill="#3a5d72"/>
+      <circle cx="1310" cy="152" r="36" fill="#3a5d72"/>
+    </svg>
+
+    <div class="mist mist-1"></div>
+
+    <!-- blue morning grass -->
+    <svg class="hill-back" viewBox="0 0 1440 340" preserveAspectRatio="none">
+      <path fill="#9cc0c2" d="M0 120 Q180 70 360 100 Q540 128 720 92 Q900 62 1080 96 Q1260 126 1440 84 V340 H0 Z"/>
+    </svg>
+
+    <div class="mist mist-2"></div>
+
+    <svg class="hill-front" viewBox="0 0 1440 240" preserveAspectRatio="none">
+      <path fill="#7aa3ac" d="M0 100 Q200 55 400 85 Q600 112 800 78 Q1000 50 1200 88 Q1330 108 1440 92 V240 H0 Z"/>
+    </svg>
+  </div>
+
+  <!-- ============ the actual content ============ -->
+  <main class="card">
+    <div class="logo" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 2v8"/>
+        <path d="m4.93 10.93 1.41 1.41"/>
+        <path d="M2 18h2"/>
+        <path d="M20 18h2"/>
+        <path d="m19.07 10.93-1.41 1.41"/>
+        <path d="M22 22H2"/>
+        <path d="m8 6 4-4 4 4"/>
+        <path d="M16 18a4 4 0 0 0-8 0"/>
+      </svg>
+    </div>
+
+    <!-- EDIT: your project name goes here -->
+    <h1>Project <span class="accent">Meadow</span></h1>
+    <p class="tagline">Something good is growing here. The sun is up, the coffee is on.</p>
+
+    <p class="status">
+      <span class="dot" aria-hidden="true"></span>
+      <span id="type"></span>
+      <span class="caret" aria-hidden="true"></span>
+    </p>
+    <noscript><p class="fine">JavaScript is off &mdash; imagine a very funny status line here.</p></noscript>
+
+    <div class="progress" id="bar" role="progressbar" aria-label="Build progress"
+         aria-valuemin="0" aria-valuemax="100" aria-valuenow="42">
+      <div class="progress-meta"><span>Building awesomeness</span><b id="pct">42%</b></div>
+      <div class="bar"><i id="fill"></i></div>
+      <p class="fine">100% is a myth. We checked.</p>
+    </div>
+
+    <ul class="badges">
+      <li title="Estimated arrival: soon, technically">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 2.5c2.9 2 4.6 5.3 4.6 9l-2 3.5H9.4l-2-3.5c0-3.7 1.7-7 4.6-9Z"/>
+          <circle cx="12" cy="9" r="1.7"/>
+          <path d="M9.4 15l-2.2 3.6 3.4-1.2M14.6 15l2.2 3.6-3.4-1.2M12 17.5V21"/>
+        </svg>
+        Rising toward launch
+      </li>
+      <li title="Decaf is not an option">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 9h12v5a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5V9Z"/>
+          <path d="M16 10h1.5a2.5 2.5 0 0 1 0 5H16"/>
+          <path d="M8 3.5c0 1-1 1.5-1 2.5M12 3.5c0 1-1 1.5-1 2.5"/>
+        </svg>
+        Freshly brewed
+      </li>
+      <li title="We released them into the wild">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 7a4.5 4.5 0 0 1 4.5 4.5v2.5a4.5 4.5 0 0 1-9 0v-2.5A4.5 4.5 0 0 1 12 7Z"/>
+          <path d="M12 7v11.5M7.5 11H4M7.5 14.5 5 16.5M16.5 11H20M16.5 14.5 19 16.5M9.5 5.5 8 3.5M14.5 5.5 16 3.5"/>
+        </svg>
+        Bugs: mostly evicted
+      </li>
+    </ul>
+
+    <form id="notify" novalidate>
+      <input id="email" type="email" name="email" placeholder="you@somewhere.cool"
+             autocomplete="email" aria-label="Your email address" />
+      <button class="cta" type="submit">Notify me</button>
+    </form>
+    <p class="fine">No spam. Just one glorious &ldquo;we&rsquo;re live&rdquo; email, someday.</p>
+  </main>
+
+  <footer>
+    <!-- EDIT: point these at your real profiles -->
+    <nav class="socials" aria-label="Links">
+      <a href="#" aria-label="GitHub" title="GitHub">
+        <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+          <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/>
+        </svg>
+      </a>
+      <a href="#" aria-label="X (Twitter)" title="X (Twitter)">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231ZM17.083 19.77h1.833L7.084 4.126H5.117Z"/>
+        </svg>
+      </a>
+      <!-- EDIT: your real email -->
+      <a href="mailto:hello@example.com" aria-label="Email us" title="Email us">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="3" y="5" width="18" height="14" rx="2"/>
+          <path d="m3 7 9 6 9-6"/>
+        </svg>
+      </a>
+    </nav>
+    <p class="legal">&copy; <span id="year">2026</span> Project Meadow &mdash; grown with patience, watered with coffee.</p>
+  </footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function () {
+  'use strict';
+
+  var $ = function (s) { return document.querySelector(s); };
+  var pick = function (arr) { return arr[Math.floor(Math.random() * arr.length)]; };
+
+  /* ---------- funny status lines (EDIT freely) ---------- */
+  var LINES = [
+    "Wiring the servers. Untangling the developers.",
+    "Powered by 3% code and 97% morning coffee.",
+    "The bugs applied for jobs. We said no.",
+    "Launch date: when it's ready (trademark pending).",
+    "Slow mornings build fast websites. Probably.",
+    "Rome wasn't built in a day. This isn't Rome, but still.",
+    "Somewhere, a rubber duck is enjoying the sunrise.",
+    "99 little bugs in the code. Take one down...",
+    "Everything is going to be ok. The code too. Eventually.",
+    "Loading creativity. Do not refresh your expectations."
+  ];
+
+  /* ---------- typewriter (the only gentle motion here) ---------- */
+  var typeEl = $('#type');
+  var li = 0, ci = 0, deleting = false;
+  function tick() {
+    var line = LINES[li];
+    typeEl.textContent = line.slice(0, ci);
+    if (!deleting) {
+      if (ci < line.length) { ci++; setTimeout(tick, 34 + Math.random() * 44); }
+      else { deleting = true; setTimeout(tick, 2600); }
+    } else {
+      if (ci > 0) { ci--; setTimeout(tick, 13); }
+      else { deleting = false; li = (li + 1) % LINES.length; setTimeout(tick, 500); }
+    }
+  }
+  tick();
+
+  /* ---------- progress bar: slow and patient ---------- */
+  var pct = 42, locked = false;
+  var pctEl = $('#pct'), fillEl = $('#fill'), barEl = $('#bar');
+  function render() {
+    var v = Math.floor(pct);
+    pctEl.textContent = v + '%';
+    fillEl.style.width = v + '%';
+    barEl.setAttribute('aria-valuenow', v);
+  }
+  function step() {
+    if (locked) return;
+    pct += Math.random() * 2.4;
+    if (pct >= 99) {
+      pct = 99; render(); locked = true;
+      toast(pick([
+        "99%... then the intern pressed Ctrl+Z.",
+        "So close! The build server yawned and stretched.",
+        "The last 1% is called launch. It's expensive."
+      ]));
+      setTimeout(function () {
+        pct = 38 + Math.random() * 10; locked = false; render(); step();
+      }, 3600);
+      return;
+    }
+    if (Math.random() < 0.06) {
+      pct = Math.max(34, pct - (3 + Math.random() * 7));
+      toast("A cloud passed over the wifi. It happens.");
+    }
+    render();
+    setTimeout(step, 2200 + Math.random() * 2000);
+  }
+  render();
+  setTimeout(step, 2200);
+
+  /* ---------- toast ---------- */
+  var toastEl = $('#toast'), toastTimer;
+  function toast(msg) {
+    toastEl.textContent = msg;
+    toastEl.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () { toastEl.classList.remove('show'); }, 3000);
+  }
+
+  /* ---------- easter eggs ---------- */
+  $('#sun').addEventListener('click', function () {
+    toast(pick([
+      "The sun peeked out to say: everything is going to be ok.",
+      "Sunrise status: right on time. Unlike the launch.",
+      "The sun says hi. It has been up since five."
+    ]));
+  });
+  $('#birds').addEventListener('click', function () {
+    toast(pick([
+      "The birds checked the schedule. No rush today.",
+      "Early birds report: calm skies, good code ahead.",
+      "They chirped something about shipping it."
+    ]));
+  });
+
+  /* ---------- notify form (front-end only, stores locally) ---------- */
+  var form = $('#notify'), email = $('#email');
+  function showJoined(fresh) {
+    form.innerHTML = '<p class="joined">' + (fresh
+      ? "You're on the list! We'll write the moment it blooms."
+      : "Welcome back. The coffee's still warm.") + '</p>';
+  }
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var v = email.value.trim();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) {
+      toast("That email looks a bit wilted. Try again?");
+      email.focus();
+      return;
+    }
+    try { localStorage.setItem('meadow-notify', '1'); } catch (err) {}
+    showJoined(true);
+  });
+  try { if (localStorage.getItem('meadow-notify')) showJoined(false); } catch (err) {}
+
+  /* ---------- small delights ---------- */
+  $('#year').textContent = new Date().getFullYear();
+
+  var baseTitle = document.title;
+  document.addEventListener('visibilitychange', function () {
+    document.title = document.hidden ? 'The meadow misses you...' : baseTitle;
+  });
+
+  console.log(
+    '%cGood morning, developer!%c\nNothing down here but dew and console logs.\nThe whole page is one file on purpose. Go nuts.',
+    'font-size:16px;font-weight:bold;color:#d98324',
+    'color:#52707f'
+  );
+})();
+</script>
+</body>
+</html>

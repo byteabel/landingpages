@@ -1,0 +1,549 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<!-- ============================================================
+  PROJECT NEPTUNE — a "something is coming" landing page.
+  One file. No build step. No dependencies (the font is optional).
+
+  HOW TO CUSTOMIZE (2 minutes):
+    1. Search for "Neptune" and swap in your project name.
+    2. Search for "ahoy@example.com" and use your real email.
+    3. Point the two social links (href="#") at your profiles.
+    4. Edit the funny status lines in the LINES array in the script.
+    5. Drop this file on any static host: GitHub Pages, Netlify,
+       Vercel, Cloudflare Pages, or the root of your nginx box.
+============================================================= -->
+<title>Project Neptune — something awesome is surfacing</title>
+<meta name="description" content="Project Neptune is under construction. Drop your email and be the first to catch the wave." />
+<meta name="theme-color" content="#064a74" />
+<meta property="og:title" content="Project Neptune — something awesome is surfacing" />
+<meta property="og:description" content="Under construction. Drop your email and be the first to catch the wave." />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23064a74'/%3E%3Cg fill='none' stroke='%23ffc233' stroke-width='5' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='32' cy='14' r='5'/%3E%3Cpath d='M32 19v33'/%3E%3Cpath d='M21 27h22'/%3E%3Cpath d='M13 38c1 10 9 16 19 16s18-6 19-16'/%3E%3Cpath d='M13 38l-6-5M51 38l6-5'/%3E%3C/g%3E%3C/svg%3E" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" />
+
+<style>
+  :root{
+    --bg-top:#03284a;
+    --bg-mid:#064a74;
+    --bg-bot:#0a7fae;
+    --ink:#eaf7ff;
+    --muted:#bfe3f5;
+    --accent:#ffc233;
+    --accent2:#8be4ff;
+    --card:rgba(255,255,255,.08);
+    --line:rgba(255,255,255,.16);
+    --wave-h:170px;
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{color-scheme:dark;scroll-behavior:smooth}
+
+  body{
+    min-height:100vh;
+    font-family:'Space Grotesk',ui-sans-serif,system-ui,'Segoe UI',sans-serif;
+    color:var(--ink);
+    background-image:linear-gradient(180deg,var(--bg-top) 0%,var(--bg-mid) 55%,var(--bg-bot) 100%);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    padding:48px 20px calc(var(--wave-h) + 30px);
+    overflow-x:hidden;
+    text-align:center;
+  }
+
+  /* soft glow behind everything */
+  body::before{
+    content:"";position:fixed;top:-12%;left:50%;transform:translateX(-50%);
+    width:80vmax;height:80vmax;z-index:0;pointer-events:none;
+    background:radial-gradient(circle,rgba(139,228,255,.14),transparent 60%);
+  }
+
+  ::selection{background:var(--accent);color:#06283d}
+  :focus-visible{outline:2px solid var(--accent2);outline-offset:3px}
+
+  /* ---------- ocean scenery ---------- */
+  .ocean{position:fixed;inset:0;overflow:hidden;pointer-events:none;z-index:1}
+  .ocean button{pointer-events:auto;background:none;border:0;padding:0;cursor:pointer}
+
+  .bubbles{position:absolute;inset:0}
+  .bubbles i{
+    position:absolute;bottom:-40px;border-radius:50%;
+    background:radial-gradient(circle at 32% 30%,rgba(255,255,255,.75),rgba(255,255,255,.06) 70%);
+    animation:rise linear infinite;
+  }
+  @keyframes rise{
+    0%{transform:translateY(0);opacity:0}
+    8%{opacity:.45}
+    90%{opacity:.45}
+    100%{transform:translateY(-120vh);opacity:0}
+  }
+
+  .waves{position:absolute;left:0;right:0;bottom:0;height:var(--wave-h)}
+  .waves svg{position:absolute;bottom:0;left:0;width:200%;height:100%}
+  .wave-1{fill:#dff4ff;opacity:.14;animation:drift 26s linear infinite}
+  .wave-2{fill:#0d86b8;opacity:.38;animation:drift 17s linear infinite reverse;animation-delay:-6s}
+  .wave-3{fill:#0a5e88;animation:drift 11s linear infinite;animation-delay:-3s}
+  @keyframes drift{to{transform:translateX(-50%)}}
+
+  .boat{
+    position:absolute;left:9%;bottom:calc(var(--wave-h) - 28px);width:118px;
+    animation:bob 4.5s ease-in-out infinite;
+    filter:drop-shadow(0 10px 12px rgba(0,0,0,.28));
+  }
+  @keyframes bob{
+    0%,100%{transform:translateY(0) rotate(-1.5deg)}
+    50%{transform:translateY(-8px) rotate(2deg)}
+  }
+
+  .fish{
+    position:absolute;top:56%;left:0;width:72px;
+    animation:swim 24s linear infinite;animation-delay:-6s;
+    filter:drop-shadow(0 6px 8px rgba(0,0,0,.25));
+  }
+  .fish svg{animation:wiggle 2.4s ease-in-out infinite}
+  @keyframes swim{from{transform:translateX(-120px)}to{transform:translateX(calc(100vw + 120px))}}
+  @keyframes wiggle{
+    0%,100%{transform:translateY(0) rotate(0)}
+    50%{transform:translateY(-6px) rotate(3deg)}
+  }
+
+  /* ---------- glass card ---------- */
+  .card{
+    position:relative;z-index:3;width:min(660px,100%);
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:26px;
+    padding:clamp(28px,5vw,52px) clamp(20px,5vw,48px);
+    backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+    box-shadow:0 30px 70px rgba(0,10,30,.45);
+    animation:fadeUp .9s cubic-bezier(.2,.7,.2,1) both;
+  }
+  @keyframes fadeUp{
+    from{opacity:0;transform:translateY(26px)}
+    to{opacity:1;transform:none}
+  }
+
+  .logo{
+    width:84px;height:84px;margin:0 auto 18px;border-radius:26px;
+    display:grid;place-items:center;color:var(--accent);
+    background:linear-gradient(160deg,rgba(255,194,51,.16),rgba(139,228,255,.12));
+    border:1px solid var(--line);
+    box-shadow:0 12px 30px rgba(0,0,0,.3),inset 0 0 24px rgba(255,194,51,.08);
+  }
+  .logo svg{width:46px;height:46px}
+
+  h1{
+    font-size:clamp(2.1rem,6vw,3.2rem);
+    font-weight:700;letter-spacing:-.02em;line-height:1.05;
+  }
+  .accent{
+    background:linear-gradient(92deg,var(--accent) 10%,#ff9e64 90%);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  .tagline{margin-top:12px;font-size:clamp(1rem,2.6vw,1.15rem);color:var(--muted)}
+
+  /* live status line */
+  .status{
+    display:inline-flex;align-items:center;gap:10px;margin-top:22px;
+    padding:10px 16px;min-height:44px;border-radius:999px;
+    background:rgba(3,20,38,.45);border:1px solid var(--line);
+    font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    font-size:.92rem;color:var(--accent2);
+  }
+  .dot{
+    width:9px;height:9px;border-radius:50%;background:#4ade80;flex:none;
+    box-shadow:0 0 0 0 rgba(74,222,128,.6);animation:ping 1.8s infinite;
+  }
+  @keyframes ping{
+    70%{box-shadow:0 0 0 9px rgba(74,222,128,0)}
+    100%{box-shadow:0 0 0 0 rgba(74,222,128,0)}
+  }
+  .caret{
+    width:9px;height:1.15em;background:var(--accent2);
+    display:inline-block;flex:none;animation:blink 1s steps(1) infinite;
+  }
+  @keyframes blink{50%{opacity:0}}
+
+  /* progress bar that will never, ever finish */
+  .progress{margin-top:26px;text-align:left}
+  .progress-meta{
+    display:flex;justify-content:space-between;align-items:baseline;
+    font-size:.9rem;color:var(--muted);margin-bottom:8px;
+  }
+  .progress-meta b{color:var(--accent);font-variant-numeric:tabular-nums}
+  .bar{
+    height:12px;border-radius:999px;overflow:hidden;
+    background:rgba(3,20,38,.5);border:1px solid var(--line);
+  }
+  .bar i{
+    display:block;height:100%;width:42%;border-radius:inherit;
+    background:linear-gradient(90deg,#2dd4bf,#38bdf8 55%,var(--accent2));
+    box-shadow:0 0 14px rgba(56,189,248,.6);
+    transition:width 1.4s cubic-bezier(.3,.8,.3,1);
+  }
+  .fine{margin-top:8px;font-size:.82rem;color:rgba(234,247,255,.55)}
+
+  /* mini badges */
+  .badges{
+    list-style:none;display:flex;flex-wrap:wrap;justify-content:center;
+    gap:10px;margin-top:24px;
+  }
+  .badges li{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:9px 14px;border-radius:999px;
+    background:rgba(255,255,255,.06);border:1px solid var(--line);
+    font-size:.88rem;color:var(--muted);
+  }
+  .badges svg{width:17px;height:17px;color:var(--accent);flex:none}
+
+  /* notify form */
+  form{display:flex;gap:10px;margin-top:28px}
+  input{
+    flex:1;min-width:0;padding:14px 18px;border-radius:16px;outline:none;
+    border:1px solid var(--line);background:rgba(3,20,38,.45);
+    color:var(--ink);font:inherit;font-size:.98rem;
+    transition:border-color .2s,box-shadow .2s;
+  }
+  input::placeholder{color:rgba(234,247,255,.4)}
+  input:focus{border-color:var(--accent2);box-shadow:0 0 0 4px rgba(139,228,255,.15)}
+  .cta{
+    padding:14px 22px;border:0;border-radius:16px;cursor:pointer;white-space:nowrap;
+    font:inherit;font-weight:700;color:#06283d;
+    background:linear-gradient(180deg,#ffd166,var(--accent) 55%,#f59e0b);
+    box-shadow:0 12px 24px rgba(255,194,51,.25);
+    transition:transform .15s,box-shadow .15s;
+  }
+  .cta:hover{transform:translateY(-2px);box-shadow:0 16px 30px rgba(255,194,51,.35)}
+  .cta:active{transform:translateY(0)}
+  .joined{font-size:1rem;color:var(--accent2);padding:14px 4px}
+
+  /* footer */
+  footer{
+    position:relative;z-index:3;margin-top:30px;
+    display:flex;flex-direction:column;align-items:center;gap:12px;
+  }
+  .socials{display:flex;gap:14px}
+  .socials a{
+    width:40px;height:40px;display:grid;place-items:center;border-radius:12px;
+    border:1px solid var(--line);background:rgba(3,20,38,.5);color:var(--ink);
+    transition:transform .15s,background .2s,color .2s;
+  }
+  .socials a:hover{transform:translateY(-3px);color:#06283d;background:var(--accent)}
+  .socials svg{width:18px;height:18px}
+  .legal{
+    font-size:.8rem;color:rgba(234,247,255,.78);
+    text-shadow:0 1px 6px rgba(3,40,60,.8);
+  }
+
+  /* toast */
+  .toast{
+    position:fixed;left:50%;bottom:calc(var(--wave-h) + 18px);z-index:9;
+    transform:translateX(-50%) translateY(16px);
+    max-width:min(90vw,480px);padding:12px 18px;border-radius:14px;
+    border:1px solid var(--line);background:rgba(6,30,52,.92);color:var(--ink);
+    font-size:.92rem;opacity:0;pointer-events:none;
+    box-shadow:0 16px 40px rgba(0,0,0,.4);
+    transition:opacity .25s,transform .25s;
+  }
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+  @media (max-width:560px){
+    :root{--wave-h:120px}
+    .boat{width:84px;left:6%}
+    .fish{width:52px}
+    form{flex-direction:column}
+    .cta{width:100%}
+    .card{border-radius:20px}
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    *,*::before,*::after{
+      animation-duration:.01ms !important;
+      animation-iteration-count:1 !important;
+      transition:none !important;
+    }
+  }
+</style>
+</head>
+<body>
+
+  <!-- ============ ocean scenery (decorative) ============ -->
+  <div class="ocean" aria-hidden="true">
+    <div class="bubbles" id="bubbles"></div>
+
+    <div class="waves">
+      <svg class="wave-1" viewBox="0 0 2880 140" preserveAspectRatio="none">
+        <path d="M0 70C240 110 480 30 720 70 960 110 1200 30 1440 70 1680 110 1920 30 2160 70 2400 110 2640 30 2880 70V140H0Z"/>
+      </svg>
+      <svg class="wave-2" viewBox="0 0 2880 140" preserveAspectRatio="none">
+        <path d="M0 70C240 110 480 30 720 70 960 110 1200 30 1440 70 1680 110 1920 30 2160 70 2400 110 2640 30 2880 70V140H0Z"/>
+      </svg>
+      <svg class="wave-3" viewBox="0 0 2880 140" preserveAspectRatio="none">
+        <path d="M0 70C240 110 480 30 720 70 960 110 1200 30 1440 70 1680 110 1920 30 2160 70 2400 110 2640 30 2880 70V140H0Z"/>
+      </svg>
+    </div>
+
+    <!-- click the boat for a surprise -->
+    <button class="boat" id="boat" tabindex="-1">
+      <svg viewBox="0 0 140 110">
+        <path d="M70 10v58" stroke="#eaf7ff" stroke-width="4" stroke-linecap="round"/>
+        <path d="M75 16l30 34H75Z" fill="#ffc233"/>
+        <path d="M65 24 40 50h25Z" fill="#dff4ff"/>
+        <path d="M70 10 52 15l18 5Z" fill="#ff6b6b"/>
+        <path d="M16 72h108l-16 26H32Z" fill="#052742"/>
+        <circle cx="52" cy="84" r="3.5" fill="#dff4ff"/>
+        <circle cx="88" cy="84" r="3.5" fill="#dff4ff"/>
+      </svg>
+    </button>
+
+    <!-- click the fish too. it does not mind. -->
+    <button class="fish" id="fish" tabindex="-1">
+      <svg viewBox="0 0 96 56">
+        <path d="M40 17c2-6 8-8 13-6" stroke="#f4a259" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <path d="M22 28c8-11 22-16 36-12 8 2.2 14 7.2 18 12-4 4.8-10 9.8-18 12-14 4-28-1-36-12Z" fill="#ffd166"/>
+        <path d="M56 17c3 3.5 3 9.5 0 13" stroke="#f4a259" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <path d="M24 28 6 15c-2.6 8.6-2.6 17.4 0 26L24 28Z" fill="#f4a259"/>
+        <circle cx="66" cy="24" r="3.4" fill="#052742"/>
+        <circle cx="67.2" cy="22.8" r="1.1" fill="#fff"/>
+      </svg>
+    </button>
+  </div>
+
+  <!-- ============ the actual content ============ -->
+  <main class="card">
+    <div class="logo" aria-hidden="true">
+      <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="32" cy="11" r="6"/>
+        <path d="M32 17v38"/>
+        <path d="M20 25h24"/>
+        <path d="M12 37c2 12 10 18 20 18s18-6 20-18"/>
+        <path d="M12 37l-6-6M52 37l6-6"/>
+      </svg>
+    </div>
+
+    <!-- EDIT: your project name goes here -->
+    <h1>Project <span class="accent">Neptune</span></h1>
+    <p class="tagline">Something awesome is surfacing. We&rsquo;re down here wiring the ocean to the internet.</p>
+
+    <p class="status">
+      <span class="dot" aria-hidden="true"></span>
+      <span id="type"></span>
+      <span class="caret" aria-hidden="true"></span>
+    </p>
+    <noscript><p class="fine">JavaScript is off &mdash; imagine a very funny status line here.</p></noscript>
+
+    <div class="progress" id="bar" role="progressbar" aria-label="Build progress"
+         aria-valuemin="0" aria-valuemax="100" aria-valuenow="42">
+      <div class="progress-meta"><span>Building awesomeness</span><b id="pct">42%</b></div>
+      <div class="bar"><i id="fill"></i></div>
+      <p class="fine">100% is a myth. We checked.</p>
+    </div>
+
+    <ul class="badges">
+      <li title="Estimated arrival: soon, technically">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 2.5c2.9 2 4.6 5.3 4.6 9l-2 3.5H9.4l-2-3.5c0-3.7 1.7-7 4.6-9Z"/>
+          <circle cx="12" cy="9" r="1.7"/>
+          <path d="M9.4 15l-2.2 3.6 3.4-1.2M14.6 15l2.2 3.6-3.4-1.2M12 17.5V21"/>
+        </svg>
+        Sailing toward launch
+      </li>
+      <li title="Decaf is not an option">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 9h12v5a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5V9Z"/>
+          <path d="M16 10h1.5a2.5 2.5 0 0 1 0 5H16"/>
+          <path d="M8 3.5c0 1-1 1.5-1 2.5M12 3.5c0 1-1 1.5-1 2.5"/>
+        </svg>
+        Runs on caffeine
+      </li>
+      <li title="We released them into the wild">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 7a4.5 4.5 0 0 1 4.5 4.5v2.5a4.5 4.5 0 0 1-9 0v-2.5A4.5 4.5 0 0 1 12 7Z"/>
+          <path d="M12 7v11.5M7.5 11H4M7.5 14.5 5 16.5M16.5 11H20M16.5 14.5 19 16.5M9.5 5.5 8 3.5M14.5 5.5 16 3.5"/>
+        </svg>
+        Bugs: mostly evicted
+      </li>
+    </ul>
+
+    <form id="notify" novalidate>
+      <input id="email" type="email" name="email" placeholder="you@somewhere.cool"
+             autocomplete="email" aria-label="Your email address" />
+      <button class="cta" type="submit">Notify me</button>
+    </form>
+    <p class="fine">No spam. Just one glorious &ldquo;we&rsquo;re live&rdquo; email, someday.</p>
+  </main>
+
+  <footer>
+    <!-- EDIT: point these at your real profiles -->
+    <nav class="socials" aria-label="Links">
+      <a href="#" aria-label="GitHub" title="GitHub">
+        <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+          <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/>
+        </svg>
+      </a>
+      <a href="#" aria-label="X (Twitter)" title="X (Twitter)">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231ZM17.083 19.77h1.833L7.084 4.126H5.117Z"/>
+        </svg>
+      </a>
+      <!-- EDIT: your real email -->
+      <a href="mailto:ahoy@example.com" aria-label="Email us" title="Email us">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="3" y="5" width="18" height="14" rx="2"/>
+          <path d="m3 7 9 6 9-6"/>
+        </svg>
+      </a>
+    </nav>
+    <p class="legal">&copy; <span id="year">2026</span> Project Neptune &mdash; no fish were harmed in the making of this site.</p>
+  </footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function () {
+  'use strict';
+
+  var $ = function (s) { return document.querySelector(s); };
+  var pick = function (arr) { return arr[Math.floor(Math.random() * arr.length)]; };
+
+  /* ---------- funny status lines (EDIT freely) ---------- */
+  var LINES = [
+    "Wiring the servers. Untangling the developers.",
+    "Powered by 3% code and 97% coffee.",
+    "The bugs applied for jobs. We said no.",
+    "Launch date: when it's ready (trademark pending).",
+    "We're not slow. We're marinating.",
+    "Rome wasn't built in a day. This isn't Rome, but still.",
+    "Somewhere, a rubber duck is hearing everything.",
+    "99 little bugs in the code. Take one down...",
+    "Negotiating with the compiler. It wants snacks.",
+    "Loading creativity. Do not refresh your expectations."
+  ];
+
+  /* ---------- typewriter ---------- */
+  var typeEl = $('#type');
+  var li = 0, ci = 0, deleting = false;
+  function tick() {
+    var line = LINES[li];
+    typeEl.textContent = line.slice(0, ci);
+    if (!deleting) {
+      if (ci < line.length) { ci++; setTimeout(tick, 34 + Math.random() * 44); }
+      else { deleting = true; setTimeout(tick, 2300); }
+    } else {
+      if (ci > 0) { ci--; setTimeout(tick, 13); }
+      else { deleting = false; li = (li + 1) % LINES.length; setTimeout(tick, 420); }
+    }
+  }
+  tick();
+
+  /* ---------- progress bar: forever almost-done ---------- */
+  var pct = 42, locked = false;
+  var pctEl = $('#pct'), fillEl = $('#fill'), barEl = $('#bar');
+  function render() {
+    var v = Math.floor(pct);
+    pctEl.textContent = v + '%';
+    fillEl.style.width = v + '%';
+    barEl.setAttribute('aria-valuenow', v);
+  }
+  function step() {
+    if (locked) return;
+    pct += Math.random() * 3.2;
+    if (pct >= 99) {
+      pct = 99; render(); locked = true;
+      toast(pick([
+        "99%... then the intern pressed Ctrl+Z.",
+        "So close! The build server yawned.",
+        "The last 1% is called launch. It's expensive."
+      ]));
+      setTimeout(function () {
+        pct = 38 + Math.random() * 10; locked = false; render(); step();
+      }, 3200);
+      return;
+    }
+    if (Math.random() < 0.07) {
+      pct = Math.max(34, pct - (4 + Math.random() * 9));
+      toast("Someone unplugged the router. Again.");
+    }
+    render();
+    setTimeout(step, 1600 + Math.random() * 1700);
+  }
+  render();
+  setTimeout(step, 1800);
+
+  /* ---------- toast ---------- */
+  var toastEl = $('#toast'), toastTimer;
+  function toast(msg) {
+    toastEl.textContent = msg;
+    toastEl.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () { toastEl.classList.remove('show'); }, 2800);
+  }
+
+  /* ---------- bubbles ---------- */
+  var bubbles = $('#bubbles');
+  for (var b = 0; b < 14; b++) {
+    var el = document.createElement('i');
+    var size = 6 + Math.random() * 15;
+    el.style.left = (Math.random() * 100) + '%';
+    el.style.width = size + 'px';
+    el.style.height = size + 'px';
+    el.style.animationDuration = (9 + Math.random() * 13) + 's';
+    el.style.animationDelay = (-Math.random() * 20) + 's';
+    bubbles.appendChild(el);
+  }
+
+  /* ---------- easter eggs ---------- */
+  $('#fish').addEventListener('click', function () {
+    toast(pick([
+      "The fish says: just keep swimming.",
+      "He knows nothing. He's just a fish.",
+      "You caught a high five. Nice."
+    ]));
+  });
+  $('#boat').addEventListener('click', function () {
+    toast(pick([
+      "Captain's log: all hands are coding.",
+      "The boat is ready. The website is shy.",
+      "Cargo check: 12 ideas, 2 tests, 1 parrot."
+    ]));
+  });
+
+  /* ---------- notify form (front-end only, stores locally) ---------- */
+  var form = $('#notify'), email = $('#email');
+  function showJoined(fresh) {
+    form.innerHTML = '<p class="joined">' + (fresh
+      ? "Aye aye! You're on the list. We'll send a message in a bottle."
+      : "Welcome back, captain. You're already aboard the list.") + '</p>';
+  }
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var v = email.value.trim();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) {
+      toast("That email looks fishy. Try again?");
+      email.focus();
+      return;
+    }
+    try { localStorage.setItem('neptune-notify', '1'); } catch (err) {}
+    showJoined(true);
+  });
+  try { if (localStorage.getItem('neptune-notify')) showJoined(false); } catch (err) {}
+
+  /* ---------- small delights ---------- */
+  $('#year').textContent = new Date().getFullYear();
+
+  var baseTitle = document.title;
+  document.addEventListener('visibilitychange', function () {
+    document.title = document.hidden ? 'The ocean misses you...' : baseTitle;
+  });
+
+  console.log(
+    '%cAhoy, developer!%c\nNothing down here but old ropes and console logs.\nThe whole page is one file on purpose. Go nuts.',
+    'font-size:16px;font-weight:bold;color:#8be4ff',
+    'color:#cdeffd'
+  );
+})();
+</script>
+</body>
+</html>
