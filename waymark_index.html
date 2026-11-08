@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#eaf3ef">
+<title>Waymark — A quieter offline life</title>
+<meta name="description" content="A quiet landing page for projects. Hiking, beach, wind — single file, works everywhere.">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23eaf3ef'/%3E%3Cpath d='M8 44 L22 24 L32 36 L42 20 L56 44 Z' fill='none' stroke='%232f5d50' stroke-width='2.5' stroke-linejoin='round'/%3E%3Cpath d='M10 52 H54 M18 12 H34 M42 12 H50' fill='none' stroke='%23b8930f' stroke-width='2.5' stroke-linecap='round'/%3E%3C/svg%3E">
+<style>
+:root{
+  color-scheme: light;
+  --pine-950:#1e3f36; --pine-900:#2f5d50; --pine-700:#3d7263; --pine-500:#5a9182;
+  --mist:#eaf3ef; --mist-2:#f4faf7; --sand:#d8e6de; --line:#cfded5;
+  --ink:#2a443d; --muted:#6e8a80; --gold:#b8930f; --gold-soft:#c9a227; --white:#fff;
+  --shadow:0 8px 26px rgba(30,63,54,.07); --radius:18px;
+}
+*{box-sizing:border-box}
+html{background:var(--mist-2)}
+body{margin:0;min-height:100vh;color:var(--ink);
+  background:radial-gradient(ellipse at 12% 0%, rgba(201,162,39,.12), transparent 32%),
+             radial-gradient(ellipse at 92% 18%, rgba(90,145,130,.16), transparent 38%),
+             linear-gradient(155deg,#f6fbf8 0%,#eaf3ef 52%,#f6fbf8 100%);
+  font-family:"Segoe UI",Arial,system-ui,sans-serif;font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+button,input{font:inherit}
+a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.page{width:min(1080px,calc(100% - 36px));margin:0 auto;padding:24px 0 28px}
+/* Bismillah */
+.bismillah{text-align:center;padding:14px 10px 6px}
+.bismillah-ar{margin:0;color:var(--gold);font-size:clamp(22px,3.2vw,30px);line-height:1.9;font-weight:700;
+  font-family:"Traditional Arabic","Amiri","Scheherazade New","Noto Naskh Arabic",serif}
+.bismillah-rule{display:flex;align-items:center;justify-content:center;gap:10px;margin-top:4px}
+.bismillah-rule::before,.bismillah-rule::after{content:"";height:1px;width:min(120px,28vw);background:linear-gradient(90deg,transparent,var(--gold-soft))}
+.bismillah-rule::after{background:linear-gradient(90deg,var(--gold-soft),transparent)}
+.bismillah-rule svg{width:26px;height:14px;color:var(--gold-soft)}
+/* Header */
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 2px 20px}
+.brand{display:flex;align-items:center;gap:11px;min-width:0}
+.brand-mark{display:grid;width:43px;height:43px;flex:0 0 43px;place-items:center;border:1px solid var(--line);
+  border-radius:50%;color:var(--pine-900);background:var(--white);box-shadow:var(--shadow)}
+.brand-name{margin:0;color:var(--pine-950);font-size:20px;font-weight:750;letter-spacing:-.5px;line-height:1.25}
+.brand-caption{display:block;margin-top:2px;color:var(--muted);font-size:12px}
+.status{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border:1px solid var(--line);border-radius:999px;
+  color:var(--pine-900);background:rgba(255,255,255,.75);font-size:12px;white-space:nowrap}
+.status-dot{width:7px;height:7px;border-radius:50%;background:#4eaa91}
+/* Hero */
+.hero{display:grid;grid-template-columns:minmax(0,1fr) 240px;gap:28px;align-items:center;padding:32px;
+  border:1px solid rgba(255,255,255,.8);border-radius:25px;color:var(--white);
+  background:linear-gradient(125deg,#234f42 0%,#2f6b58 55%,#5a9182 100%);box-shadow:0 12px 32px rgba(30,63,54,.13);overflow:hidden;position:relative}
+.eyebrow{margin:0 0 10px;color:#cfe8d8;font-size:11px;font-weight:750;letter-spacing:2px;text-transform:uppercase}
+.hero h1{max-width:560px;margin:0;font-size:clamp(28px,4vw,40px);font-weight:720;letter-spacing:-1.1px;line-height:1.16}
+.hero p{max-width:460px;margin:13px 0 0;color:#dcefe4;font-size:14px;line-height:1.8}
+.hero-meta{margin-top:18px;display:flex;gap:8px;flex-wrap:wrap}
+.pill{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border:1px solid rgba(255,255,255,.28);
+  border-radius:999px;color:#e6f3eb;font-size:11px;background:rgba(255,255,255,.08)}
+.pill svg{width:14px;height:14px}
+/* Pocketwatch */
+.pocketwatch{justify-self:center;width:210px;max-width:100%}
+.pw-svg{display:block;width:100%;height:auto;overflow:visible}
+.pw-face{fill:#fdf8e8;stroke:#8a6d1a;stroke-width:2}
+.pw-rim{fill:none;stroke:var(--gold-soft);stroke-width:6}
+.pw-inner{fill:none;stroke:rgba(184,147,15,.35);stroke-width:1}
+.pw-tick{stroke:#5c4a12;stroke-width:1.4;stroke-linecap:round}
+.pw-hand{stroke:#1e3f36;stroke-width:3.4;stroke-linecap:round}
+.pw-hand-min{stroke-width:2.4}
+.pw-sec{stroke:#b8930f;stroke-width:1.3;stroke-linecap:round}
+.pw-center{fill:var(--gold);stroke:#1e3f36;stroke-width:1.2}
+.pw-cap{fill:var(--gold-soft);stroke:#8a6d1a;stroke-width:1.4}
+.pw-chain{fill:none;stroke:var(--gold);stroke-width:2.6;stroke-linecap:round}
+.clock-caption{text-align:center;margin-top:10px;color:#dcefe4;font-size:12px;line-height:1.7}
+.clock-caption b{color:#fff;font-variant-numeric:tabular-nums;font-size:15px;font-weight:650}
+/* Mountain divider */
+.ridge{display:block;width:100%;height:52px;margin-top:-1px}
+.hero-wrap{border-radius:25px;overflow:hidden}
+.hero-bottom{height:52px;background:var(--mist-2)}
+/* Sections */
+.section{margin-top:28px}
+.section-heading{display:flex;align-items:end;justify-content:space-between;gap:12px;margin-bottom:15px}
+.section-title{margin:0;color:var(--pine-950);font-size:17px;font-weight:750;letter-spacing:-.35px}
+.section-sub{margin:4px 0 0;color:var(--muted);font-size:12px}
+.section-note{color:var(--muted);font-size:11px}
+/* Verse */
+.verse-card{padding:26px 24px;border:1px solid var(--line);border-radius:var(--radius);background:rgba(255,255,255,.85);box-shadow:var(--shadow);text-align:center}
+.verse-ar{margin:0;color:var(--pine-950);font-size:clamp(22px,3.6vw,30px);line-height:2;
+  font-family:"Traditional Arabic","Amiri","Scheherazade New","Noto Naskh Arabic",serif}
+.verse-en{margin:12px auto 0;max-width:560px;color:var(--ink);font-size:14px;font-style:italic}
+.verse-ref{margin:10px 0 0;color:var(--gold);font-size:11px;font-weight:750;letter-spacing:1.2px;text-transform:uppercase}
+.verse-nav{margin-top:16px;display:flex;justify-content:center;gap:8px;align-items:center}
+.nav-btn{display:inline-flex;align-items:center;gap:6px;padding:7px 12px;border:1px solid var(--line);border-radius:999px;
+  background:#fff;color:var(--pine-900);font-size:12px;cursor:pointer}
+.nav-btn:hover{border-color:var(--gold-soft);background:#fdf8e8}
+.nav-btn svg{width:14px;height:14px}
+/* Rainy lower side — light clouds, rainy mood */
+.rainy{margin-top:26px}
+.rainy svg{display:block;width:100%;height:110px}
+/* Footer */
+footer{margin-top:30px;padding-top:18px;border-top:1px solid rgba(191,222,217,.7);text-align:center}
+.wind{display:block;width:min(320px,70%);height:26px;margin:0 auto 12px;color:var(--pine-500)}
+.footer-links{display:flex;justify-content:center;gap:10px;flex-wrap:wrap}
+.footer-links a{display:inline-flex;align-items:center;gap:7px;padding:8px 13px;border:1px solid var(--line);border-radius:999px;background:#fff;color:var(--pine-900);font-size:12px;font-weight:700}
+.footer-links a:hover{border-color:var(--gold-soft)}
+.footer-links svg{width:15px;height:15px}
+.footer-line{margin:14px 0 0;color:var(--muted);font-size:12px}
+.icon{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+@media(max-width:760px){
+  .hero{grid-template-columns:1fr;padding:26px 22px}
+  .pocketwatch{width:180px}
+  .topbar{flex-wrap:wrap}
+}
+@media(max-width:460px){
+  .page{width:calc(100% - 22px);padding-top:14px}
+  .bismillah-ar{font-size:24px}
+}
+</style>
+</head>
+<body>
+<svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true">
+  <symbol id="i-mountain" viewBox="0 0 24 24"><path d="M2 20 10 6l4 7 3-4 5 11z"/><path d="M10 6h.01"/></symbol>
+  <symbol id="i-waves" viewBox="0 0 24 24"><path d="M2 8c3 0 3-3 6-3s3 3 6 3 3-3 8-3M2 13c3 0 3-3 6-3s3 3 6 3 3-3 8-3M2 18c3 0 3-3 6-3s3 3 6 3 3-3 8-3"/></symbol>
+  <symbol id="i-wind" viewBox="0 0 24 24"><path d="M3 8h9a3 3 0 1 0-3-3M3 12h14a3 3 0 1 1-3 3M3 16h6"/></symbol>
+  <symbol id="i-compass" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M15 9l-2 6-4-4 6-2z"/></symbol>
+  <symbol id="i-tree" viewBox="0 0 24 24"><path d="M12 3 6 11h3l-4 6h14l-4-6h3zM12 17v4"/></symbol>
+  <symbol id="i-folder" viewBox="0 0 24 24"><path d="M3 6.5A1.5 1.5 0 0 1 4.5 5H10l2 2h7.5A1.5 1.5 0 0 1 21 8.5v10a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 3 18.5z"/></symbol>
+  <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></symbol>
+  <symbol id="i-git" viewBox="0 0 24 24"><path d="M6 3v12"/><circle cx="6" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><circle cx="18" cy="6" r="3"/><path d="M18 9a9 9 0 0 1-9 9"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-left" viewBox="0 0 24 24"><path d="M19 12H5M11 6l-6 6 6 6"/></symbol>
+  <symbol id="i-right" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-book" viewBox="0 0 24 24"><path d="M4 4h13a3 3 0 0 1 3 3v13H7a3 3 0 0 1-3-3z"/><path d="M4 17a3 3 0 0 1 3-3h13"/></symbol>
+</svg>
+
+<main class="page">
+  <div class="bismillah" aria-label="Bismillah">
+    <p class="bismillah-ar" lang="ar" dir="rtl">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</p>
+    <div class="bismillah-rule" aria-hidden="true">
+      <svg viewBox="0 0 30 14" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><path d="M1 7c5 0 5-5 10-5s5 5 10 5 5-3 8-2"/></svg>
+    </div>
+  </div>
+
+  <header class="topbar">
+    <a class="brand" href="./">
+      <span class="brand-mark"><svg class="icon" aria-hidden="true"><use href="#i-mountain"/></svg></span>
+      <span><span class="brand-name">Waymark</span><span class="brand-caption">A quieter offline life</span></span>
+    </a>
+    <div class="status" id="status"><span class="status-dot" id="status-dot"></span><span id="status-text">Welcome</span></div>
+  </header>
+
+  <div class="hero-wrap">
+    <section class="hero" aria-labelledby="welcome">
+      <div>
+        <p class="eyebrow">Trailhead · Home Port</p>
+        <h1 id="welcome">Good <span id="greeting">day</span>.<br>A little clarity goes a long way.</h1>
+        <p>Mountain, beach, and wind — everything I built, gathered in one quiet place. No noise, no tracking, just pick a trail and go.</p>
+        <div class="hero-meta">
+          <span class="pill"><svg class="icon" aria-hidden="true"><use href="#i-wind"/></svg> Single file</span>
+          <span class="pill"><svg class="icon" aria-hidden="true"><use href="#i-compass"/></svg> Works offline</span>
+          <span class="pill"><svg class="icon" aria-hidden="true"><use href="#i-tree"/></svg> Any server</span>
+        </div>
+      </div>
+
+      <div class="pocketwatch">
+        <svg class="pw-svg" viewBox="0 0 210 260" role="img" aria-label="Analog pocketwatch clock">
+          <path class="pw-chain" d="M105 28v-18M105 10a8 8 0 1 1 0.1 0"/>
+          <circle class="pw-cap" cx="105" cy="34" r="9"/>
+          <rect x="97" y="42" width="16" height="10" rx="3" fill="#c9a227" stroke="#8a6d1a"/>
+          <circle cx="105" cy="150" r="92" fill="#c9a227" stroke="#8a6d1a" stroke-width="2"/>
+          <circle cx="105" cy="150" r="86" fill="none" stroke="#fdf8e8" stroke-width="2"/>
+          <circle class="pw-face" cx="105" cy="150" r="80"/>
+          <g id="ticks"></g>
+          <g id="hour-hand"><line class="pw-hand" x1="105" y1="150" x2="105" y2="102"/></g>
+          <g id="minute-hand"><line class="pw-hand pw-hand-min" x1="105" y1="150" x2="105" y2="82"/></g>
+          <g id="second-hand"><line class="pw-sec" x1="105" y1="162" x2="105" y2="78"/></g>
+          <circle class="pw-center" cx="105" cy="150" r="5"/>
+          <path d="M70 195c4-8 10-8 14 0M126 195c4-8 10-8 14 0" fill="none" stroke="#5a9182" stroke-width="1.4" stroke-linecap="round"/>
+        </svg>
+        <div class="clock-caption"><b id="digital">--:--:--</b><br><span id="date-line">Loading…</span><br><span id="hijri-line"></span></div>
+      </div>
+    </section>
+    <svg class="ridge" viewBox="0 0 1200 52" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M0 38 L120 18 L240 34 L360 12 L480 30 L600 10 L720 32 L840 16 L960 34 L1080 20 L1200 36 L1200 52 L0 52 Z" fill="#eaf3ef"/>
+      <path d="M0 44 L160 28 L320 40 L520 24 L720 40 L920 26 L1200 42 L1200 52 L0 52 Z" fill="#f4faf7"/>
+    </svg>
+  </div>
+
+  <section class="section" aria-labelledby="verse-title">
+    <div class="section-heading"><div><h2 class="section-title" id="verse-title">Verse of the day</h2><p class="section-sub">From the Holy Quran — same for everyone today, no storage needed.</p></div></div>
+    <div class="verse-card">
+      <p class="verse-ar" id="verse-ar" lang="ar" dir="rtl"></p>
+      <p class="verse-en" id="verse-en"></p>
+      <p class="verse-ref" id="verse-ref"></p>
+      <div class="verse-nav">
+        <button class="nav-btn" id="verse-prev" type="button"><svg class="icon" aria-hidden="true"><use href="#i-left"/></svg> Prev</button>
+        <span class="section-note" id="verse-count"></span>
+        <button class="nav-btn" id="verse-next" type="button">Next <svg class="icon" aria-hidden="true"><use href="#i-right"/></svg></button>
+      </div>
+    </div>
+  </section>
+
+  <div class="rainy" aria-hidden="true">
+    <svg viewBox="0 0 1200 110" preserveAspectRatio="none">
+      <g fill="none" stroke="#b9d2c8" stroke-width="1.6" stroke-linecap="round" opacity=".85">
+        <path d="M120 34c10-16 42-16 52 0 16-6 34 4 34 18 0 12-10 20-22 20h-58c-12 0-20-8-20-20 0-8 5-15 14-18z" fill="#eaf3ef"/>
+        <path d="M320 22c12-18 48-18 60 0 18-7 38 5 38 20 0 14-11 23-25 23h-67c-14 0-23-9-23-23 0-9 6-17 17-20z" fill="#eef6f1"/>
+        <path d="M150 84l-4 14M185 88l-4 14M220 84l-4 14M350 74l-4 14M385 78l-4 14M420 74l-4 14"/>
+      </g>
+      <g fill="none" stroke="#8fb5a6" stroke-width="1.6" stroke-linecap="round" opacity=".7">
+        <path d="M820 30c10-15 42-15 52 0 16-5 34 5 34 18 0 11-9 19-21 19h-58c-12 0-20-8-20-19 0-8 5-15 13-18z" fill="#eaf3ef"/>
+        <path d="M1000 40c9-13 38-13 47 0 14-5 30 4 30 16 0 10-8 17-19 17h-52c-11 0-18-7-18-17 0-7 4-13 12-16z" fill="#eef6f1"/>
+        <path d="M850 80l-4 14M885 84l-4 14M920 80l-4 14M1020 86l-4 14M1055 90l-4 14"/>
+      </g>
+      <path d="M0 100c180-8 360-8 600 0s420 8 600 0v10H0z" fill="#cfe3d9" opacity=".55"/>
+    </svg>
+  </div>
+
+  <footer>
+    <svg class="wind" viewBox="0 0 320 26" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M10 8c30 0 30-6 60-6s30 6 60 6 30-6 60-6 30 6 60 6 30-4 60-2M20 18c40 0 40-6 80-6s40 6 80 6 40-6 110-4"/></svg>
+    <div class="footer-links">
+      <a id="link-web" href="https://example.com" rel="noopener"><svg class="icon" aria-hidden="true"><use href="#i-globe"/></svg> Website</a>
+      <a id="link-git" href="https://github.com" rel="noopener"><svg class="icon" aria-hidden="true"><use href="#i-git"/></svg> GitHub</a>
+      <a id="link-mail" href="mailto:hello@example.com"><svg class="icon" aria-hidden="true"><use href="#i-mail"/></svg> Email</a>
+    </div>
+    <p class="footer-line">Waymark · A quieter offline life · Single file, works on any OS &amp; server</p>
+  </footer>
+</main>
+
+<script>
+"use strict";
+/* ===== CONFIG — edit here only ===== */
+const CONFIG = {
+  web: "https://example.com",
+  git: "https://github.com",
+  mail: "mailto:hello@example.com"
+};
+const VERSES = [
+  { ar:"اقْرَأْ بِاسْمِ رَبِّكَ الَّذِي خَلَقَ", en:"Read in the name of your Lord who created.", ref:"Quran 96:1", transliteration:"Iqra’ bismi rabbikal-lazi khalaq" },
+  { ar:"وَقُل رَّبِّ زِدْنِي عِلْمًا", en:"And say: My Lord, increase me in knowledge.", ref:"Quran 20:114", transliteration:"Wa qul Rabbi zidni ‘ilma" },
+  { ar:"إِنَّ مَعَ الْعُسْرِ يُسْرًا", en:"Indeed, with hardship comes ease.", ref:"Quran 94:5–6", transliteration:"Inna ma‘a al-‘usri yusra" },
+  { ar:"أَلَا بِذِكْرِ اللَّهِ تَطْمَئِنُّ الْقُلُوبُ", en:"Verily, in the remembrance of Allah do hearts find rest.", ref:"Quran 13:28", transliteration:"Ala bi-dhikri Allahi tatmainnu al-qulub" },
+  { ar:"لَا يُكَلِّفُ اللَّهُ نَفْسًا إِلَّا وُسْعَهَا", en:"Allah does not burden a soul beyond that it can bear.", ref:"Quran 2:286", transliteration:"La yukallifu Allahu nafsan illa wus‘aha" },
+  { ar:"وَمَن يَتَّقِ اللَّهَ يَجْعَل لَّهُ مَخْرَجًا", en:"And whoever is mindful of Allah, He will make for him an outlet.", ref:"Quran 65:2", transliteration:"Wa man yattaqi Allah yaj‘al lahu makhraja" },
+  { ar:"إِنَّ اللَّهَ مَعَ الصَّابِرِينَ", en:"Indeed, Allah is with the patient.", ref:"Quran 2:153", transliteration:"Inna Allah ma‘a as-sabirin" }
+];
+document.getElementById("link-web").href = CONFIG.web;
+document.getElementById("link-git").href = CONFIG.git;
+document.getElementById("link-mail").href = CONFIG.mail;
+
+/* ===== Pocketwatch ===== */
+(function(){
+  const ticks=document.getElementById("ticks"), cx=105, cy=150, R=72;
+  for(let i=0;i<12;i++){
+    const a=i*30*Math.PI/180, big=i%3===0;
+    const x1=cx+Math.sin(a)*(R-(big?12:7)), y1=cy-Math.cos(a)*(R-(big?12:7));
+    const x2=cx+Math.sin(a)*R, y2=cy-Math.cos(a)*R;
+    const l=document.createElementNS("http://www.w3.org/2000/svg","line");
+    l.setAttribute("x1",x1);l.setAttribute("y1",y1);l.setAttribute("x2",x2);l.setAttribute("y2",y2);
+    l.setAttribute("class","pw-tick"); if(big) l.setAttribute("stroke-width","2.2");
+    ticks.appendChild(l);
+  }
+  const h=document.getElementById("hour-hand"), m=document.getElementById("minute-hand"), s=document.getElementById("second-hand");
+  const digital=document.getElementById("digital"), dateLine=document.getElementById("date-line"), hijri=document.getElementById("hijri-line");
+  const greet=document.getElementById("greeting");
+  function tick(){
+    const now=new Date();
+    const sec=now.getSeconds(), min=now.getMinutes(), hr=now.getHours()%12;
+    s.setAttribute("transform","rotate("+(sec*6)+" 105 150)");
+    m.setAttribute("transform","rotate("+(min*6+sec*0.1)+" 105 150)");
+    h.setAttribute("transform","rotate("+(hr*30+min*0.5)+" 105 150)");
+    digital.textContent=now.toLocaleTimeString(undefined,{hour:"2-digit",minute:"2-digit",second:"2-digit",hour12:false});
+    dateLine.textContent=now.toLocaleDateString(undefined,{weekday:"short",day:"numeric",month:"short",year:"numeric"});
+    try{ hijri.textContent=new Intl.DateTimeFormat("en-u-ca-islamic",{day:"numeric",month:"long",year:"numeric"}).format(now); }catch(e){ hijri.textContent=""; }
+    greet.textContent = now.getHours()<12 ? "morning" : now.getHours()<18 ? "afternoon" : "evening";
+  }
+  tick(); setInterval(tick,1000);
+})();
+
+/* ===== Status ===== */
+(function(){
+  const t=document.getElementById("status-text"), d=document.getElementById("status-dot");
+  function update(){ t.textContent = navigator.onLine ? "Online · Ready to explore" : "Offline · Still works"; d.style.background = navigator.onLine ? "#4eaa91" : "#c9a227"; }
+  update(); addEventListener("online",update); addEventListener("offline",update);
+})();
+
+/* ===== Verse of the day (date-based, no storage) ===== */
+(function(){
+  const now=new Date(), start=new Date(now.getFullYear(),0,0);
+  const day=Math.floor((now-start)/86400000);
+  let idx=((day % VERSES.length)+VERSES.length)%VERSES.length;
+  const ar=document.getElementById("verse-ar"), en=document.getElementById("verse-en"),
+        ref=document.getElementById("verse-ref"), cnt=document.getElementById("verse-count");
+  function show(){
+    const v=VERSES[idx];
+    ar.textContent=v.ar; en.textContent="“"+v.en+"” — "+v.transliteration;
+    ref.textContent=v.ref; cnt.textContent=(idx+1)+" / "+VERSES.length;
+  }
+  document.getElementById("verse-prev").addEventListener("click",()=>{ idx=(idx-1+VERSES.length)%VERSES.length; show(); });
+  document.getElementById("verse-next").addEventListener("click",()=>{ idx=(idx+1)%VERSES.length; show(); });
+  show();
+})();
+
+</script>
+</body>
+</html>
