@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Uh oh! 404</title>
+<link rel="icon" type="image/svg+xml" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><circle cx="32" cy="32" r="29" fill="%23F7F3E9" stroke="%238A6D00" stroke-width="4"/><circle cx="32" cy="32" r="19" fill="none" stroke="%233D4A3D" stroke-width="2"/><polygon points="32,13 38,32 32,51 26,32" fill="%233D4A3D"/><polygon points="13,32 32,26 51,32 32,38" fill="%238A6D00" opacity="0.75"/><circle cx="32" cy="32" r="4" fill="%23F7F3E9" stroke="%233D4A3D" stroke-width="2"/></svg>'>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:100%;max-width:100vw}
+body{
+  font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  background:linear-gradient(180deg,#2E3452 0%,#4A4A6E 32%,#8A7A8E 62%,#D9A88A 100%);
+  color:#F6F2E8;min-height:100vh;
+  display:flex;align-items:center;justify-content:center;
+  padding:16px 12px 120px;overflow-x:hidden;text-align:center;
+}
+.river{position:fixed;left:0;right:0;bottom:0;width:100%;height:auto;display:block;pointer-events:none;z-index:0}
+.container{
+  position:relative;z-index:1;width:min(620px,100%);min-width:0;
+  background:rgba(38,42,66,.82);border:1px solid rgba(246,242,232,.22);
+  border-radius:20px;padding:clamp(18px,4vw,32px) clamp(14px,4vw,28px);
+  box-shadow:0 12px 36px rgba(10,12,26,.45);
+  backdrop-filter:blur(6px);
+}
+.salam{
+  color:#E5C76B;
+  /* Arabic font — option C: Scheherazade New first */
+  font-family:"Scheherazade New","Noto Naskh Arabic","Traditional Arabic",Amiri,serif;
+  font-size:clamp(28px,7vw,38px);line-height:1.7;font-weight:700;
+  margin-bottom:8px;overflow-wrap:break-word;unicode-bidi:plaintext;
+}
+.icon-wrap{margin:8px auto;width:56px;height:56px;max-width:100%}
+.icon-wrap svg{width:100%;height:100%}
+.code-svg{width:min(320px,86vw);margin:6px auto 4px;display:block}
+.code-svg svg{width:100%;height:auto;display:block}
+h1{font-size:clamp(13px,3.5vw,15px);font-weight:600;color:#D8D2C0;margin:2px 0 12px;overflow-wrap:break-word}
+.message{font-size:14px;line-height:1.65;color:#C8CBD8;margin-bottom:16px;overflow-wrap:break-word}
+.message b{color:#F6F2E8}
+.ayah{background:rgba(246,242,232,.08);border:1px solid rgba(246,242,232,.20);border-radius:14px;padding:12px 14px;margin-bottom:18px}
+.ayah-ar{font-family:"Scheherazade New","Noto Naskh Arabic","Traditional Arabic",Amiri,serif;font-size:clamp(16px,4vw,19px);line-height:1.9;color:#F6F2E8;margin-bottom:6px;overflow-wrap:break-word}
+.ayah-en{font-size:13px;line-height:1.6;color:#C8CBD8;font-style:italic}
+.ayah-ref{margin-top:6px;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#9AA0B8}
+.buttons{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;padding:11px 20px;max-width:100%;border-radius:999px;text-decoration:none;font-weight:600;font-size:14px;border:1px solid #F6F2E8;cursor:pointer;font-family:inherit;transition:.2s;white-space:nowrap}
+.btn svg{width:17px;height:17px;flex:0 0 17px}
+.btn-primary{background:#F6F2E8;color:#2E3452}
+.btn-primary:hover{background:#E8E6DC}
+.btn-soft{background:transparent;color:#F6F2E8;border-color:rgba(246,242,232,.45)}
+.btn-soft:hover{background:rgba(246,242,232,.12)}
+@media(max-width:480px){
+  body{padding-bottom:90px}
+  .buttons{flex-direction:column}
+  .btn{width:100%}
+  .river{height:110px}
+}
+</style>
+</head>
+<body>
+<!-- Dusk river, Greek temple, guiding star -->
+<svg class="river" viewBox="0 0 1440 340" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+<!-- stars -->
+<g fill="#F6F2E8">
+<circle cx="120" cy="40" r="2"/><circle cx="260" cy="70" r="1.6"/><circle cx="420" cy="35" r="2.2"/><circle cx="620" cy="55" r="1.5"/><circle cx="820" cy="30" r="2"/><circle cx="1020" cy="60" r="1.6"/><circle cx="1280" cy="38" r="2.2"/><circle cx="1350" cy="80" r="1.5"/>
+</g>
+<!-- crescent moon -->
+<path d="M180,58 a26,26 0 1,0 18,44 a20,20 0 1,1 -18,-44" fill="#F6F2E8" opacity="0.9"/>
+<!-- guiding north star -->
+<g>
+<circle cx="720" cy="78" r="34" fill="#F6F2E8" opacity="0.14"/>
+<polygon points="720,38 726,66 754,72 726,78 720,106 714,78 686,72 714,66" fill="#F6F2E8"/>
+<circle cx="720" cy="72" r="6" fill="#FFF8DC"/>
+<line x1="720" y1="106" x2="720" y2="210" stroke="#F6F2E8" stroke-width="1.5" stroke-dasharray="3 7" opacity="0.65"/>
+</g>
+<!-- far hill + Greek temple silhouette -->
+<path d="M0,210 C260,160 520,150 780,175 C1040,200 1240,165 1440,185 L1440,340 L0,340 Z" fill="#3A4366" opacity="0.9"/>
+<g fill="#2E3452">
+<polygon points="140,190 260,148 380,190"/>
+<rect x="155" y="190" width="210" height="10"/>
+<rect x="165" y="200" width="14" height="38"/><rect x="195" y="200" width="14" height="38"/><rect x="225" y="200" width="14" height="38"/><rect x="255" y="200" width="14" height="38"/><rect x="285" y="200" width="14" height="38"/><rect x="315" y="200" width="14" height="38"/>
+<rect x="150" y="238" width="220" height="8"/>
+</g>
+<!-- river -->
+<path d="M0,262 C260,245 520,255 780,262 C1040,269 1240,250 1440,258 L1440,340 L0,340 Z" fill="#5A6A8A"/>
+<path d="M0,262 C260,245 520,255 780,262 C1040,269 1240,250 1440,258" fill="none" stroke="#D9A88A" stroke-width="3" opacity="0.8"/>
+<!-- star reflection on river -->
+<g stroke="#F6F2E8" stroke-width="2" stroke-linecap="round" opacity="0.7">
+<line x1="700" y1="275" x2="740" y2="275"/><line x1="706" y1="290" x2="734" y2="290"/><line x1="712" y1="305" x2="728" y2="305"/>
+</g>
+<!-- near bank -->
+<path d="M0,310 C340,290 760,305 1440,295 L1440,340 L0,340 Z" fill="#2E3452"/>
+<!-- olive branch + reeds -->
+<g stroke="#2E3452" stroke-width="2.5" fill="none" stroke-linecap="round">
+<path d="M1180,310 C1185,285 1190,268 1195,252"/>
+<path d="M1195,252 C1180,242 1165,240 1152,246"/><path d="M1195,252 C1210,240 1225,238 1238,245"/>
+<path d="M250,312 L250,285 M262,312 L262,290 M238,312 L238,292"/>
+</g>
+</svg>
+
+<main class="container">
+<p class="salam" lang="ar" dir="rtl">السلام عليكم</p>
+
+<div class="icon-wrap" aria-hidden="true">
+<svg viewBox="0 0 72 72" fill="none" aria-hidden="true"><circle cx="36" cy="36" r="34" stroke="#9AA0B8" stroke-width="2" fill="rgba(246,242,232,.08)"/><circle cx="36" cy="36" r="17" stroke="#F6F2E8" stroke-width="2.5"/><polygon points="36,24 39.5,32.5 48,36 39.5,39.5 36,48 32.5,39.5 24,36 32.5,32.5" fill="#F6F2E8"/><circle cx="36" cy="36" r="3" fill="#2E3452"/></svg>
+</div>
+
+<div class="code-svg" role="img" aria-label="404">
+<svg viewBox="0 0 340 130" aria-hidden="true" focusable="false">
+<defs><pattern id="greek" width="18" height="9" patternUnits="userSpaceOnUse"><path d="M1 7 H16 V2 H5 V5 H11" fill="none" stroke="#F6F2E8" stroke-width="1.4"/></pattern></defs>
+<rect x="4" y="4" width="332" height="122" rx="8" fill="#2E3452" stroke="#F6F2E8" stroke-width="2.5"/>
+<rect x="10" y="10" width="320" height="110" rx="4" fill="url(#greek)" opacity="0.16"/>
+<!-- temple pediment top -->
+<polygon points="120,28 170,12 220,28" fill="none" stroke="#F6F2E8" stroke-width="2"/>
+<circle cx="170" cy="22" r="3" fill="#F6F2E8"/>
+<!-- columns sides -->
+<g fill="none" stroke="#F6F2E8" stroke-width="2">
+<line x1="28" y1="42" x2="28" y2="100"/><line x1="38" y1="42" x2="38" y2="100"/><line x1="48" y1="42" x2="48" y2="100"/>
+<line x1="292" y1="42" x2="292" y2="100"/><line x1="302" y1="42" x2="302" y2="100"/><line x1="312" y1="42" x2="312" y2="100"/>
+<line x1="22" y1="42" x2="54" y2="42"/><line x1="22" y1="100" x2="54" y2="100"/><line x1="286" y1="42" x2="318" y2="42"/><line x1="286" y1="100" x2="318" y2="100"/>
+</g>
+<!-- laurel wreath around 0 -->
+<ellipse cx="170" cy="74" rx="54" ry="36" fill="none" stroke="#E5C76B" stroke-width="2"/>
+<g fill="none" stroke="#E5C76B" stroke-width="1.6" stroke-linecap="round">
+<path d="M128,58 q-8,-6 -12,0 M132,86 q-9,2 -11,10 M212,58 q8,-6 12,0 M208,86 q9,2 11,10"/>
+</g>
+<!-- guiding star above -->
+<polygon points="170,34 172,40 178,42 172,44 170,50 168,44 162,42 168,40" fill="#F6F2E8"/>
+<g font-family="Cinzel,'Times New Roman',Times,serif" font-size="56" font-weight="800" fill="#F6F2E8" text-anchor="middle">
+<text x="84" y="92">4</text>
+<text x="170" y="94">0</text>
+<text x="256" y="92">4</text>
+</g>
+<line x1="60" y1="112" x2="280" y2="112" stroke="#F6F2E8" stroke-width="1" opacity="0.5"/>
+</svg>
+</div>
+<h1>Lost at dusk — follow the star, check URL/path for a typo.</h1>
+<p class="message"><b>&ldquo;hmoe&rdquo;</b> vs <b>&ldquo;home&rdquo;</b> — we&rsquo;ve all done it.</p>
+
+<blockquote class="ayah">
+<p class="ayah-ar" lang="ar" dir="rtl">وَلَا تَهِنُوا وَلَا تَحْزَنُوا وَأَنتُمُ الْأَعْلَوْنَ إِن كُنتُم مُّؤْمِنِينَ</p>
+<p class="ayah-en">&ldquo;Do not lose hope, nor be sad. Allah is with you if you have faith.&rdquo;</p>
+<p class="ayah-ref">Qur&rsquo;an 3:139</p>
+</blockquote>
+
+<div class="buttons">
+<a href="/" class="btn btn-primary"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12l9-9 9 9"/><path d="M9 21V12h6v9"/></svg>Go Home</a>
+<button type="button" onclick="history.back()" class="btn btn-soft"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>Go Back</button>
+</div>
+</main>
+</body>
+</html>
